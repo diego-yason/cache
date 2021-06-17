@@ -37,7 +37,7 @@ class Cache {
             returnCode.code = -3;
             returnCode.data["key"] = key;
             return returnCode;
-        } else if (typeof group == "string" || typeof group == "number") {
+        } else if (!(typeof group == "string" || typeof group == "number" || typeof group == "undefined")) {
             returnCode.code = -5;
             returnCode.data = {
                 key: key,
@@ -47,6 +47,10 @@ class Cache {
         }
 
         if (group) {
+            if (!this.store[group]) {
+                this.store[group] = {};
+                this.timeouts[group] = {};
+            }
             this.store[group][key] = value;
             this.timeouts[group][key] = setTimeout(() => {
                 this.store[group][key] = null;
@@ -125,6 +129,8 @@ class Cache {
 
 module.exports = Cache;
 
-const test = new Cache();
+const cache = new Cache();
 
-console.log(test.add("a", "aaaa"));
+cache.add("test", "hello");
+        cache.add("test", "hi", 1);
+        cache.add("notest", "lies.", "hello");
