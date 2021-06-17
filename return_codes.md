@@ -4,6 +4,7 @@
 
 | Code Number | Details                      | Included `data` field? | Is Error? |
 |-------------|---------------------------- -|------------------------|-----------|
+| -5          | Incorrect group datatype     | Yes. All data          | **Yes**   |
 | -4          | Missing key and value.       | No.                    | **Yes**   |
 | -3          | Missing value.               | Yes. `key`.            | **Yes**   |
 | -2          | Missing key.                 | Yes. `value`.          | **Yes**   |
