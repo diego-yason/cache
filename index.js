@@ -2,6 +2,7 @@ class Cache {
 
     store = {};
     timeouts = {};
+    length = 0;
 
     /**
      * @param {number} defaultTime Time to live in the cache. If left blank, cache will not clear out by default.
@@ -35,6 +36,13 @@ class Cache {
         } else if (typeof value == "undefined") {
             returnCode.code = -3;
             returnCode.data["key"] = key;
+            return returnCode;
+        } else if (typeof group == "string" || typeof group == "number") {
+            returnCode.code = -5;
+            returnCode.data = {
+                key: key,
+                value: value
+            };
             return returnCode;
         }
 
