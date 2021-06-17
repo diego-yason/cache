@@ -128,9 +128,3 @@ class Cache {
 }
 
 module.exports = Cache;
-
-const cache = new Cache();
-
-cache.add("test", "hello");
-        cache.add("test", "hi", 1);
-        cache.add("notest", "lies.", "hello");
