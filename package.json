@@ -5,8 +5,7 @@
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "tsc"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -17,8 +16,5 @@
   "bugs": {
     "url": "https://github.com/KingMarine-GH/cache/issues"
   },
-  "homepage": "https://github.com/KingMarine-GH/cache#readme",
-  "devDependencies": {
-    "typescript": "^4.3.2"
-  }
+  "homepage": "https://github.com/KingMarine-GH/cache#readme"
 }
