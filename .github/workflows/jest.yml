@@ -6,6 +6,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install modules
-      run: npm i jest
+      run: npm i jest @types/jest
     - name: Run tests
-      run: jest
+      run: npm run onetest
