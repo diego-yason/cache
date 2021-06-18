@@ -48,22 +48,22 @@ class Cache {
 
         if (!key && !value) {
             returnCode.code = -4;
-            return returnCode;
+            throw returnCode;
         } else if (!key) {
             returnCode.code = -2;
             returnCode.data["value"] = value;
-            return returnCode;
+            throw returnCode;
         } else if (typeof value == "undefined") {
             returnCode.code = -3;
             returnCode.data["key"] = key;
-            return returnCode;
+            throw returnCode;
         } else if (!(typeof group == "string" || typeof group == "number" || typeof group == "undefined")) {
             returnCode.code = -5;
             returnCode.data = {
                 key: key,
                 value: value
             };
-            return returnCode;
+            throw returnCode;
         }
 
         if (group) {
