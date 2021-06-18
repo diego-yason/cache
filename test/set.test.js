@@ -81,4 +81,45 @@ describe("Tests Cache class", () => {
 
         expect(cache.get("test").data).toBeUndefined();
     });
+
+    it("can track count of values", () => {
+        jest.useFakeTimers();
+
+        let random = Math.floor(Math.random() * 10000);
+        for (let i = 0; i < random; i++) {
+            cache.add(i, random.toString(36));
+        }
+
+        expect(cache.length).toBe(random - 1);
+
+        cache.clear();
+
+        expect(cache.length).toBe(0);
+
+        cache = new Cache(100, true);
+
+        for (let i = 0; i < random; i++) {
+            cache.add(i, random.toString(36));
+        }
+
+        jest.advanceTimersByTime(50);
+
+        cache.get(50);
+
+        jest.advanceTimersByTime(50);
+
+        expect(cache.length).toBe(1);
+
+        cache.add(10, 2);
+
+        expect(cache.length).toBe(2);
+
+        cache.clear();
+
+        expect(cache.length).toBe(0);
+
+        jest.advanceTimersByTime(1000);
+
+        expect(cache.length).toBe(0);
+    })
 });
