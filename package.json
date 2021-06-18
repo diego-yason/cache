@@ -1,6 +1,6 @@
 {
   "name": "@kingmarine/cache",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "An NPM package",
   "main": "build/index.js",
   "types": "build/index.d.ts",
