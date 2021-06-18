@@ -80,7 +80,7 @@ class Cache {
 
             if (this.defaultTime) {
                 this.timeouts[group][key] = setTimeout(() => {
-                    this.store[group][key] = null;
+                    this.store[group][key] = undefined;
                 }, this.defaultTime);
             }
         } else {
@@ -93,7 +93,7 @@ class Cache {
 
             if (this.defaultTime) {
                 this.timeouts[key] = setTimeout(() => {
-                    this.store[key] = null;
+                    this.store[key] = undefined;
                 }, this.defaultTime);
             }
         }
@@ -114,11 +114,11 @@ class Cache {
      */
     get = (key, group) => {
         if (group) {
-            if (this.store[group][key]) {
+            if (typeof this.store[group][key] != "undefined") {
                 if (this.defaultTime && this.reset) {
                     clearTimeout(this.timeouts[group][key]);
                     this.timeouts[group][key] = setTimeout(() => {
-                        this.store[group][key] = null;
+                        this.store[group][key] = undefined;
                     }, this.defaultTime); 
                 }
                 return { code: 0, data: this.store[group][key] };
@@ -126,11 +126,11 @@ class Cache {
                 return { code: 0, data: undefined };
             }
         } else {
-            if (this.store[key]) {
+            if (typeof this.store[key] != "undefined") {
                 if (this.defaultTime) {
                     clearTimeout(this.timeouts[key]);
                     this.timeouts[key] = setTimeout(() => {
-                        this.store[key] = null;
+                        this.store[key] = undefined;
                     }, this.defaultTime); 
                 }
                 return { code: 0, data: this.store[key] };
@@ -152,7 +152,7 @@ class Cache {
                 if (this.defaultTime) {
                     clearTimeout(this.timeouts[group][key]);
                 }
-                this.store[group][key] = null;
+                this.store[group][key] = undefined;
                 return true;
             } else {
                 return false;
@@ -162,7 +162,7 @@ class Cache {
                 if (this.defaultTime) {
                     clearTimeout(this.timeouts[key]);
                 }
-                this.store[key] = null;
+                this.store[key] = undefined;
                 return true
             } else {
                 return false;
