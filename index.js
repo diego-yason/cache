@@ -10,6 +10,20 @@ class Cache {
      * @param {Array<any>} [groups = []] Array of group names to initialize with 
      */
     constructor(defaultTime = null, resetTimeOnGet = false, groups = []) {
+        // type checking
+        if (!(defaultTime == null || typeof defaultTime == "number")) {
+            // not null or number
+            throw new TypeError("Incorrect type for defaultTime. Valid types: number or null");
+        }
+
+        if (typeof resetTimeOnGet != "boolean") {
+            throw new TypeError("Incorrect type for resetTimeOnGet. Valid type: boolean.");
+        }
+
+        if (!Array.isArray(groups)) {
+            throw new TypeError("groups is not an array.");
+        }
+        
         this.defaultTime = defaultTime;
         this.reset = resetTimeOnGet;
 
