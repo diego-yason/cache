@@ -1,5 +1,3 @@
-const { clear } = require("console");
-
 class Cache {
 
     store = {};
@@ -189,7 +187,8 @@ class Cache {
 
         const remove = objs => {
             Object.values(objs).forEach(value => {
-                if (value.constructor.name == "Timeout") {
+                // check if a property of timeouts exist
+                if (value._idleTimeout) {
                     clearTimeout(value);
                 } else {
                     remove(value);
