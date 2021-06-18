@@ -23,6 +23,12 @@ describe("Tests Cache class", () => {
         expect(cache.get("wrong_id").data).toBeUndefined();
     });
 
+    it("can add null values", () => {
+        cache.add("test", null);
+
+        expect(cache.get("test").data).toBeNull();
+    });
+
     it("can block invalid adds", () => {
         expect(cache.add("", "test").code).toBe(-2);
         expect(cache.add("test").code).toBe(-3);
