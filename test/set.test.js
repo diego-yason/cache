@@ -12,7 +12,7 @@ const Cache = require("../index.js");
         expect(cache.length).toBe(0);
     });
     
-    it("can add values", () => {
+    it("can add and read values", () => {
         cache.add("test", "hello");
         cache.add("test", "hi", 1);
         cache.add("notest", "lies.", "hello");
@@ -29,8 +29,6 @@ const Cache = require("../index.js");
         
         expect(cache.add("test", "def").code).toBe(1);
     })
-    
-    it.todo("can read values");
     
     it.todo("can delete values at will");
 
