@@ -22,7 +22,10 @@ const Cache = require("../index.js");
         expect(cache.get("wrong_id")).toBeUndefined();
     });
 
-    it.todo("can block invalid adds");
+    it("can block invalid adds", () => {
+        expect(cache.add("", "test").code).toBe(-2);
+        expect(cache.add("test").code).toBe(-3);
+    });
 
     it("can detect overwrites", () => {
         cache.add("test", "abc");
