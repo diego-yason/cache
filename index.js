@@ -172,5 +172,3 @@ class Cache {
 }
 
 module.exports = Cache;
-
-const cache = new Cache(1000, true)
