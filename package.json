@@ -1,5 +1,5 @@
 {
-  "name": "cache",
+  "name": "@kingmarine/cache",
   "version": "0.0.1",
   "description": "An NPM package",
   "main": "build/index.js",
