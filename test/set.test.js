@@ -1,14 +1,18 @@
-const index = require("../index.js");
+const Cache = require("../index.js");
 
-describe("Tests Cache class", () => {
+ describe("Tests Cache class", () => {
+
+    let cache = new Cache();
+
+    beforeEach(() => {
+        cache = new Cache();
+    })
 
     it("can create the Cache", () => {
-        const cache = new index();
         expect(cache.length).toBe(0);
     });
     
     it("can add values", () => {
-        const cache = new index();
         cache.add("test", "hello");
         cache.add("test", "hi", 1);
         cache.add("notest", "lies.", "hello");
@@ -19,6 +23,12 @@ describe("Tests Cache class", () => {
     });
 
     it.todo("can block invalid adds");
+
+    it("can detect overwrites", () => {
+        cache.add("test", "abc");
+        
+        expect(cache.add("test", "def").code).toBe(1);
+    })
     
     it.todo("can read values");
     
