@@ -1,3 +1,5 @@
+const { clear } = require("console");
+
 class Cache {
 
     store = {};
@@ -176,6 +178,26 @@ class Cache {
                 return false;
             }
         }
+    }
+
+    /**
+     * Resets Cache to default state
+     */
+    clear = () => {
+        this.store = {};
+        this.length = 0;
+
+        const remove = objs => {
+            Object.values(objs).forEach(value => {
+                if (value.constructor.name == "Timeout") {
+                    clearTimeout(value);
+                } else {
+                    remove(value);
+                }
+            })
+        }
+
+        remove(this.timeouts);
     }
 }
 
