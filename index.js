@@ -10,7 +10,7 @@ class Cache {
      */
     constructor(defaultTime, resetTimeOnGet, groups) {
         this.defaultTime = defaultTime || null;
-        this.reset = resetTimeOnGet || null;
+        this.reset = resetTimeOnGet || false;
     }
 
     /**
@@ -95,7 +95,7 @@ class Cache {
     get = (key, group) => {
         if (group) {
             if (this.store[group][key]) {
-                if (this.defaultTime) {
+                if (this.defaultTime && this.reset) {
                     clearTimeout(this.timeouts[group][key]);
                     this.timeouts[group][key] = setTimeout(() => {
                         this.store[group][key] = null;
