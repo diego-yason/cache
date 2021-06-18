@@ -7,10 +7,16 @@ class Cache {
     /**
      * @param {number} defaultTime Time to live in the cache. If left blank, cache will not clear out by default.
      * @param {boolean} [resetTimeOnGet = false] If item was read, the time to live will be reset to default time.
+     * @param {Array<any>} [groups = []] Array of group names to initialize with 
      */
-    constructor(defaultTime, resetTimeOnGet, groups) {
-        this.defaultTime = defaultTime || null;
-        this.reset = resetTimeOnGet || false;
+    constructor(defaultTime = null, resetTimeOnGet = false, groups = []) {
+        this.defaultTime = defaultTime;
+        this.reset = resetTimeOnGet;
+
+        for (let i = 0; i < groups.length; i++) {
+            this.timeouts[groups[i]] = {};
+            this.store[groups[i]] = {};
+        }
     }
 
     /**
@@ -152,3 +158,5 @@ class Cache {
 }
 
 module.exports = Cache;
+
+const cache = new Cache(1000, true)
