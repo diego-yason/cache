@@ -51,18 +51,34 @@ class Cache {
                 this.store[group] = {};
                 this.timeouts[group] = {};
             }
+
+            if (this.store[group][key]) {
+                returnCode.code = 1;
+            }
+
             this.store[group][key] = value;
-            this.timeouts[group][key] = setTimeout(() => {
-                this.store[group][key] = null;
-            }, this.defaultTime);
+
+            if (this.defaultTime) {
+                this.timeouts[group][key] = setTimeout(() => {
+                    this.store[group][key] = null;
+                }, this.defaultTime);
+            }
         } else {
+
+            if (this.store[key]) {
+                returnCode.code = 1;
+            }
+
             this.store[key] = value;
-            this.timeouts[key] = setTimeout(() => {
-                this.store[key] = null;
-            }, this.defaultTime);
+
+            if (this.defaultTime) {
+                this.timeouts[key] = setTimeout(() => {
+                    this.store[key] = null;
+                }, this.defaultTime);
+            }
         }
 
-        returnCode.code = 0;
+        returnCode.code = returnCode.code || 0;
         returnCode.data = {
             key: key,
             value: value
@@ -79,23 +95,27 @@ class Cache {
     get = (key, group) => {
         if (group) {
             if (this.store[group][key]) {
-                clearTimeout(this.timeouts[group][key]);
-                this.timeouts[group][key] = setTimeout(() => {
-                    this.store[group][key] = null;
-                }, this.defaultTime); 
-                return this.store[group][key]
+                if (this.defaultTime) {
+                    clearTimeout(this.timeouts[group][key]);
+                    this.timeouts[group][key] = setTimeout(() => {
+                        this.store[group][key] = null;
+                    }, this.defaultTime); 
+                }
+                return { code: 0, data: this.store[group][key] };
             } else {
-                return undefined;
+                return { code: 0, data: undefined };
             }
         } else {
             if (this.store[key]) {
-                clearTimeout(this.timeouts[key]);
-                this.timeouts[key] = setTimeout(() => {
-                    this.store[key] = null;
-                }, this.defaultTime); 
-                return this.store[key]
+                if (this.defaultTime) {
+                    clearTimeout(this.timeouts[key]);
+                    this.timeouts[key] = setTimeout(() => {
+                        this.store[key] = null;
+                    }, this.defaultTime); 
+                }
+                return { code: 0, data: this.store[key] };
             } else {
-                return undefined;
+                return { code: 0, data: undefined };
             }
         }
     }
@@ -109,7 +129,9 @@ class Cache {
     remove = (key, group) => {
         if (group) {
             if (this.store[group][key]) {
-                clearTimeout(this.timeouts[group][key]);
+                if (this.defaultTime) {
+                    clearTimeout(this.timeouts[group][key]);
+                }
                 this.store[group][key] = null;
                 return true;
             } else {
@@ -117,7 +139,9 @@ class Cache {
             }
         } else {
             if (this.store[key]) {
-                clearTimeout(this.timeouts[key]);
+                if (this.defaultTime) {
+                    clearTimeout(this.timeouts[key]);
+                }
                 this.store[key] = null;
                 return true
             } else {
