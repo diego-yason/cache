@@ -2,7 +2,7 @@ const Cache = require("../index.js");
 
 describe("Tests Cache class", () => {
 
-    let cache = new Cache();
+    let cache = new Cache(); // for intellisense
 
     beforeEach(() => {
         jest.useRealTimers();
