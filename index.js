@@ -81,6 +81,7 @@ class Cache {
             if (this.defaultTime) {
                 this.timeouts[group][key] = setTimeout(() => {
                     this.store[group][key] = undefined;
+                    this.length--;
                 }, this.defaultTime);
             }
         } else {
@@ -94,9 +95,12 @@ class Cache {
             if (this.defaultTime) {
                 this.timeouts[key] = setTimeout(() => {
                     this.store[key] = undefined;
+                    this.length--;
                 }, this.defaultTime);
             }
         }
+
+        this.length++;
 
         returnCode.code = returnCode.code || 0;
         returnCode.data = {
@@ -119,6 +123,7 @@ class Cache {
                     clearTimeout(this.timeouts[group][key]);
                     this.timeouts[group][key] = setTimeout(() => {
                         this.store[group][key] = undefined;
+                        this.length--;
                     }, this.defaultTime); 
                 }
                 return { code: 0, data: this.store[group][key] };
@@ -131,6 +136,7 @@ class Cache {
                     clearTimeout(this.timeouts[key]);
                     this.timeouts[key] = setTimeout(() => {
                         this.store[key] = undefined;
+                        this.length--;
                     }, this.defaultTime); 
                 }
                 return { code: 0, data: this.store[key] };
@@ -153,6 +159,7 @@ class Cache {
                     clearTimeout(this.timeouts[group][key]);
                 }
                 this.store[group][key] = undefined;
+                this.length--;
                 return true;
             } else {
                 return false;
@@ -163,6 +170,7 @@ class Cache {
                     clearTimeout(this.timeouts[key]);
                 }
                 this.store[key] = undefined;
+                this.length--;
                 return true
             } else {
                 return false;
