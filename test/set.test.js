@@ -110,7 +110,7 @@ describe("Tests Cache class", () => {
 
         expect(cache.length).toBe(1);
 
-        cache.add(10, 2);
+        cache.add("abc", 2);
 
         expect(cache.length).toBe(2);
 
@@ -118,7 +118,9 @@ describe("Tests Cache class", () => {
 
         expect(cache.length).toBe(0);
 
-        jest.advanceTimersByTime(1000);
+        jest.advanceTimersByTime(5000);
+
+        cache.clear()
 
         expect(cache.length).toBe(0);
     })
